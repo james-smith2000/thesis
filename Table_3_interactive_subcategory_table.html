@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Table 3. Distribution of identified sub-categories across included studies</title>
+<style>
+  :root {
+    --stakeholder-w: 170px;
+    --study-w: 235px;
+    --subcat-w: 150px;
+    --border: #d7dbe0;
+    --text: #1f2933;
+    --muted: #667085;
+    --surface: #ffffff;
+    --surface-2: #f7f8fa;
+    --accent: #1f5d7a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Aptos, "Segoe UI", Arial, sans-serif;
+    color: var(--text);
+    background: #f3f5f7;
+  }
+  .page {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid #e3e6ea;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(20, 30, 40, .06);
+    overflow: hidden;
+  }
+  .intro {
+    padding: 22px 24px 16px;
+    border-bottom: 1px solid #e6e8eb;
+  }
+  h1 {
+    margin: 0 0 8px;
+    font-size: 1.35rem;
+    line-height: 1.3;
+  }
+  .intro p {
+    margin: 6px 0;
+    color: var(--muted);
+    font-size: .94rem;
+    line-height: 1.45;
+  }
+  .controls {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.3fr) minmax(180px, .8fr) minmax(220px, 1fr) minmax(250px, 1.3fr) auto auto;
+    gap: 10px;
+    align-items: end;
+    padding: 14px 16px;
+    background: var(--surface-2);
+    border-bottom: 1px solid #e6e8eb;
+  }
+  .control label {
+    display: block;
+    margin-bottom: 5px;
+    color: #475467;
+    font-size: .76rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+  }
+  input[type="search"], select, button {
+    width: 100%;
+    min-height: 38px;
+    border: 1px solid #cfd5dc;
+    border-radius: 7px;
+    background: white;
+    color: var(--text);
+    font: inherit;
+    padding: 8px 10px;
+  }
+  button {
+    width: auto;
+    cursor: pointer;
+    font-weight: 650;
+    white-space: nowrap;
+  }
+  button.primary {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+  button:hover { filter: brightness(.98); }
+  .statusbar {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    padding: 9px 16px;
+    border-bottom: 1px solid #e6e8eb;
+    color: #475467;
+    font-size: .86rem;
+  }
+  .table-wrap {
+    max-height: 72vh;
+    overflow: auto;
+    position: relative;
+    background: white;
+  }
+  table {
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    min-width: calc(var(--stakeholder-w) + var(--study-w) + 44 * var(--subcat-w));
+    width: max-content;
+    font-size: .82rem;
+  }
+  th, td {
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 8px;
+    vertical-align: middle;
+    background: white;
+  }
+  thead th {
+    text-align: center;
+    font-weight: 700;
+  }
+  thead tr.group-row th {
+    position: sticky;
+    top: 0;
+    height: 48px;
+    z-index: 7;
+    background: #f6f7f9;
+  }
+  thead tr.sub-row th {
+    position: sticky;
+    top: 48px;
+    height: 96px;
+    z-index: 6;
+    background: #fbfbfc;
+    font-size: .76rem;
+    line-height: 1.2;
+    white-space: normal;
+  }
+  th.stakeholder, td.stakeholder {
+    width: var(--stakeholder-w);
+    min-width: var(--stakeholder-w);
+    max-width: var(--stakeholder-w);
+    position: sticky;
+    left: 0;
+    z-index: 4;
+  }
+  th.study, td.study {
+    width: var(--study-w);
+    min-width: var(--study-w);
+    max-width: var(--study-w);
+    position: sticky;
+    left: var(--stakeholder-w);
+    z-index: 4;
+  }
+  thead th.stakeholder, thead th.study {
+    z-index: 10 !important;
+  }
+  tbody td.stakeholder, tbody td.study {
+    background: #fff;
+  }
+  tbody tr:nth-child(even) td:not(.stakeholder):not(.study) {
+    background: #fcfcfd;
+  }
+  tbody tr:nth-child(even) td.stakeholder,
+  tbody tr:nth-child(even) td.study {
+    background: #fafbfc;
+  }
+  td.stakeholder {
+    font-weight: 650;
+    color: #344054;
+  }
+  td.study {
+    font-weight: 550;
+  }
+  th.subcat, td.mark {
+    width: var(--subcat-w);
+    min-width: var(--subcat-w);
+    max-width: var(--subcat-w);
+    text-align: center;
+  }
+  .xmark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-weight: 800;
+    color: #344054;
+    background: #eef1f4;
+  }
+  tbody tr:hover td {
+    box-shadow: inset 0 0 0 9999px rgba(31, 93, 122, .045);
+  }
+  tfoot td {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    background: #f2f4f7;
+    font-weight: 750;
+    text-align: center;
+  }
+  tfoot td.stakeholder, tfoot td.study {
+    z-index: 8;
+    background: #e9edf2;
+  }
+  .notes {
+    padding: 14px 18px 18px;
+    border-top: 1px solid #e6e8eb;
+    color: #475467;
+    font-size: .86rem;
+    line-height: 1.45;
+  }
+  .notes strong { color: #344054; }
+  .hidden-col { display: none !important; }
+  .empty {
+    display: none;
+    padding: 24px;
+    color: #667085;
+    text-align: center;
+  }
+  @media (max-width: 980px) {
+    .page { padding: 10px; }
+    .controls { grid-template-columns: 1fr 1fr; }
+  }
+  @media print {
+    body { background: white; }
+    .page { padding: 0; }
+    .controls, .statusbar { display: none; }
+    .table-wrap { max-height: none; overflow: visible; }
+    .card { box-shadow: none; border: 0; }
+    @page { size: landscape; margin: 8mm; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="card">
+    <div class="intro">
+      <h1>Table 3. Distribution of identified sub-categories across included studies</h1>
+      <p>Interactive version of the study-by-study sub-category matrix. Scroll horizontally, filter the rows, or focus on a single thematic category.</p>
+      <p><strong>Interpretation:</strong> “X” indicates that the sub-category was identified in the study.</p>
+    </div>
+
+    <div class="controls">
+      <div class="control">
+        <label for="search">Search study or stakeholder group</label>
+        <input id="search" type="search" placeholder="e.g. Aravind or Patients only">
+      </div>
+      <div class="control">
+        <label for="stakeholder">Stakeholder group</label>
+        <select id="stakeholder">
+          <option value="">All stakeholder groups</option>
+        </select>
+      </div>
+      <div class="control">
+        <label for="category">Columns shown</label>
+        <select id="category">
+          <option value="">All thematic categories</option>
+        </select>
+      </div>
+      <div class="control">
+        <label for="subcategory">Only studies containing</label>
+        <select id="subcategory">
+          <option value="">Any sub-category</option>
+        </select>
+      </div>
+      <button id="reset">Reset</button>
+      <button id="download" class="primary">Download filtered CSV</button>
+    </div>
+
+    <div class="statusbar">
+      <span id="visibleCount"></span>
+      <span id="columnCount"></span>
+      <span>Frequency row updates to the currently visible studies.</span>
+    </div>
+
+    <div class="table-wrap" id="tableWrap">
+      <table id="matrix">
+        <thead id="thead"></thead>
+        <tbody id="tbody"></tbody>
+        <tfoot id="tfoot"></tfoot>
+      </table>
+      <div id="empty" class="empty">No studies match the current filters.</div>
+    </div>
+
+    <div class="notes">
+      <div><strong>Source note:</strong> * Conference abstract only. † Mixed stakeholder study.</div>
+      <div><strong>Citation:</strong> Cite the associated thesis or journal article containing this table. This HTML file is an interactive presentation of the source table rather than a separate research output.</div>
+      <div><strong>Data:</strong> All table data are embedded in this HTML file, so the page can be hosted as a standalone file without a database or server-side code.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA = {"title": "Table 3. Distribution of identified sub-categories across included studies", "groups": [{"name": "Benefits", "start": 0, "end": 3, "span": 3, "bg": "#E8F1FB", "fg": "#245A8D"}, {"name": "Motivators and facilitators", "start": 3, "end": 7, "span": 4, "bg": "#EAF6EE", "fg": "#2E6B46"}, {"name": "Barriers", "start": 7, "end": 16, "span": 9, "bg": "#FBEFE7", "fg": "#8A4B22"}, {"name": "Positive aspects", "start": 16, "end": 26, "span": 10, "bg": "#F1ECFA", "fg": "#624A8A"}, {"name": "Areas for improvement", "start": 26, "end": 39, "span": 13, "bg": "#FFF5D9", "fg": "#7A5A00"}, {"name": "Need for programmes", "start": 39, "end": 41, "span": 2, "bg": "#E8F7F6", "fg": "#286866"}, {"name": "Evaluation and outcome data", "start": 41, "end": 44, "span": 3, "bg": "#F8EAF0", "fg": "#8A3F60"}], "columns": [{"index": 0, "name": "Physical benefits", "group": "Benefits", "group_index": 0}, {"index": 1, "name": "Psychosocial benefits", "group": "Benefits", "group_index": 0}, {"index": 2, "name": "Behavioural changes", "group": "Benefits", "group_index": 0}, {"index": 3, "name": "Personal drivers", "group": "Motivators and facilitators", "group_index": 1}, {"index": 4, "name": "Psychosocial motivators", "group": "Motivators and facilitators", "group_index": 1}, {"index": 5, "name": "Environmental facilitators", "group": "Motivators and facilitators", "group_index": 1}, {"index": 6, "name": "Program design and delivery", "group": "Motivators and facilitators", "group_index": 1}, {"index": 7, "name": "Environmental barriers", "group": "Barriers", "group_index": 2}, {"index": 8, "name": "Socioeconomic barriers", "group": "Barriers", "group_index": 2}, {"index": 9, "name": "Impairments as a barrier", "group": "Barriers", "group_index": 2}, {"index": 10, "name": "Psychological barriers", "group": "Barriers", "group_index": 2}, {"index": 11, "name": "Capacity of community facilities", "group": "Barriers", "group_index": 2}, {"index": 12, "name": "Staff barriers", "group": "Barriers", "group_index": 2}, {"index": 13, "name": "Safety concerns", "group": "Barriers", "group_index": 2}, {"index": 14, "name": "Technology as a barrier", "group": "Barriers", "group_index": 2}, {"index": 15, "name": "Other barriers", "group": "Barriers", "group_index": 2}, {"index": 16, "name": "Social", "group": "Positive aspects", "group_index": 3}, {"index": 17, "name": "Involving multiple stakeholders", "group": "Positive aspects", "group_index": 3}, {"index": 18, "name": "Programme design and delivery", "group": "Positive aspects", "group_index": 3}, {"index": 19, "name": "Education", "group": "Positive aspects", "group_index": 3}, {"index": 20, "name": "Communication", "group": "Positive aspects", "group_index": 3}, {"index": 21, "name": "Recruitment", "group": "Positive aspects", "group_index": 3}, {"index": 22, "name": "Venue", "group": "Positive aspects", "group_index": 3}, {"index": 23, "name": "Safety", "group": "Positive aspects", "group_index": 3}, {"index": 24, "name": "Knowledgeable and supportive staff", "group": "Positive aspects", "group_index": 3}, {"index": 25, "name": "Other positive aspects", "group": "Positive aspects", "group_index": 3}, {"index": 26, "name": "Technology", "group": "Areas for improvement", "group_index": 4}, {"index": 27, "name": "Education", "group": "Areas for improvement", "group_index": 4}, {"index": 28, "name": "Staffing", "group": "Areas for improvement", "group_index": 4}, {"index": 29, "name": "Group format", "group": "Areas for improvement", "group_index": 4}, {"index": 30, "name": "Overchallenging", "group": "Areas for improvement", "group_index": 4}, {"index": 31, "name": "Lack of continuity", "group": "Areas for improvement", "group_index": 4}, {"index": 32, "name": "Session timing", "group": "Areas for improvement", "group_index": 4}, {"index": 33, "name": "Recruitment", "group": "Areas for improvement", "group_index": 4}, {"index": 34, "name": "Session content", "group": "Areas for improvement", "group_index": 4}, {"index": 35, "name": "Venue", "group": "Areas for improvement", "group_index": 4}, {"index": 36, "name": "Support received", "group": "Areas for improvement", "group_index": 4}, {"index": 37, "name": "Equipment", "group": "Areas for improvement", "group_index": 4}, {"index": 38, "name": "Communication", "group": "Areas for improvement", "group_index": 4}, {"index": 39, "name": "Extending rehabilitation after discharge", "group": "Need for programmes", "group_index": 5}, {"index": 40, "name": "Unmet needs from formal rehabilitation", "group": "Need for programmes", "group_index": 5}, {"index": 41, "name": "Importance of evaluation data", "group": "Evaluation and outcome data", "group_index": 6}, {"index": 42, "name": "Acceptability of program evaluations", "group": "Evaluation and outcome data", "group_index": 6}, {"index": 43, "name": "Reducing burden of evaluations", "group": "Evaluation and outcome data", "group_index": 6}], "rows": [{"stakeholder": "Mixed stakeholders", "study": "Adam et al. (2018)†", "marks": ["X", "", "", "X", "", "", "", "", "", "X", "", "", "", "", "", "", "", "X", "", "", "X", "X", "", "", "X", "", "X", "", "", "X", "", "", "", "X", "", "X", "X", "", "X", "", "", "", "X", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Ali et al (2020)*", "marks": ["", "", "", "X", "X", "", "", "", "X", "X", "X", "", "", "", "", "", "X", "", "", "X", "", "X", "X", "", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Aravind et al. (2022)", "marks": ["X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "X", "X", "X", "", "", "", "X", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Aravind et al. (2023b)†", "marks": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "X", "", "", "X", "", "", "", "X", "", "X", "", "", "", "", "", "X", "", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Bird et al. (2019)", "marks": ["", "", "", "", "X", "", "", "", "X", "X", "", "", "X", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Clague-Baker et al. (2022)", "marks": ["", "X", "", "", "X", "", "", "", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "X", "", "", "", "", "X", "X", "", "", "", "X", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Dam et al. (2020)", "marks": ["X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "X", "", "X", "X", "X", "", "", "", "", "", "", "X", "", "X", "X", "", "", "X", "", "", "X", "", "X", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Fry et al. (2017)", "marks": ["", "X", "X", "X", "", "", "", "X", "X", "X", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Huijbregts et al. (2008)", "marks": ["", "X", "", "X", "X", "X", "", "", "", "", "", "", "", "", "", "", "X", "", "X", "", "X", "", "", "", "X", "", "", "X", "X", "", "", "", "", "", "", "", "X", "", "", "X", "X", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Huijbregts et al. (2009)", "marks": ["X", "X", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "X", "X", "", "", "X", "", "", "", "", "", "X", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Jackson et al. (2019)†", "marks": ["X", "X", "X", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Koh et al. (2020)", "marks": ["X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "X", "X", "", "", "", "", "", "", "X", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Merali et al. (2020)†", "marks": ["X", "X", "X", "", "", "", "", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Neal (2009)", "marks": ["", "X", "X", "X", "X", "", "", "", "", "X", "", "", "", "", "", "", "X", "", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Poltawski et al. (2015)", "marks": ["X", "X", "X", "X", "X", "", "", "", "", "", "X", "", "", "", "", "X", "X", "X", "X", "", "", "", "", "", "", "X", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Ross et al. (2023)", "marks": ["", "", "", "", "", "X", "", "X", "X", "", "", "X", "", "", "", "", "", "X", "X", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Salbach et al. (2018)†", "marks": ["", "", "", "", "", "", "", "X", "X", "X", "", "X", "X", "", "", "", "X", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Schouten et al. (2011)", "marks": ["X", "X", "", "X", "", "X", "", "X", "", "", "X", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "X", "X"]}, {"stakeholder": "Mixed stakeholders", "study": "Singh et al. (2022)", "marks": ["X", "X", "", "", "X", "", "X", "X", "", "X", "", "X", "", "", "", "X", "X", "", "X", "X", "", "", "X", "", "X", "", "", "", "X", "X", "X", "", "", "", "X", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Smith et al. (2014)", "marks": ["X", "X", "X", "", "", "", "", "", "", "X", "", "", "", "", "", "", "X", "", "X", "X", "", "", "", "", "", "", "", "", "X", "X", "", "", "", "", "", "", "", "", "", "X", "X", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Taylor et al. (2009)", "marks": ["", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "X", "", "", "", "", "", "", "", "", "X", "X", "X", "", "", "", "", "X", "", "X", "", "", "", "", "", "", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Towfighi et al. (2020)", "marks": ["", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "X", "X", "", "", "", "", "X", "", "", "X", "", "", "X", "", "", "", "X", "", "", "", "", "", "", "X", "X", ""]}, {"stakeholder": "Mixed stakeholders", "study": "Xu et al. (2021)", "marks": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Blonski et al. (2014)", "marks": ["", "X", "", "", "X", "", "X", "X", "X", "X", "", "", "X", "", "", "", "X", "", "X", "X", "", "", "X", "X", "X", "", "", "X", "", "", "", "X", "", "", "", "", "", "", "", "X", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Carin-Levy et al. (2009)", "marks": ["", "X", "X", "X", "X", "", "", "", "", "", "", "", "", "", "", "X", "X", "", "X", "", "", "", "", "", "X", "", "", "", "X", "X", "X", "X", "", "", "", "", "X", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Chamberlain et al. (2023)*", "marks": ["", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Cluckie et al. (2016)*", "marks": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "X", "", "", "X", "", "", "", "", "", "", "", "X", "", "X", "", "", "", "", "", "", "", "", "X", "", "X", "", "", ""]}, {"stakeholder": "Patients only", "study": "Coomaran et al. (2022)†", "marks": ["X", "X", "X", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Garrett et al. (2011)", "marks": ["X", "X", "", "X", "", "", "", "", "", "X", "X", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Gault-Colas et al. (2012)*†", "marks": ["", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Harris et al. (2019)", "marks": ["X", "X", "", "", "", "", "", "", "X", "X", "", "", "", "X", "", "", "X", "X", "X", "X", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "X", "X", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Hillsdon et al. (2013)", "marks": ["", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "", ""]}, {"stakeholder": "Patients only", "study": "Kerr et al. (2023)", "marks": ["X", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "X", "", "", "", "", "", "X", "", "", "", "X", "", "X", "X", "", "", "X", "X", "X", "", "", "X", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Kumar et al. (2018)*", "marks": ["X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Kumar et al. (2022)*", "marks": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Lape et al. (2018)†", "marks": ["X", "X", "", "X", "", "X", "", "X", "X", "", "", "X", "X", "X", "", "", "", "", "X", "", "X", "", "", "", "", "", "", "", "X", "", "X", "", "", "", "", "", "", "X", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Lee et al. (2024)", "marks": ["", "", "", "", "", "", "", "X", "", "", "", "", "", "X", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", "X", "", "X", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Lennon et al. (2022)", "marks": ["", "", "X", "", "", "", "X", "", "", "X", "X", "", "", "", "", "", "", "", "X", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Marzolini et al. (2016)", "marks": ["", "", "", "", "", "", "", "X", "X", "X", "", "", "", "", "", "", "", "X", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Nayak et al. (2021)", "marks": ["X", "X", "", "X", "", "", "", "X", "X", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Norris et al. (2013)", "marks": ["X", "X", "X", "X", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Norris et al. (2018)", "marks": ["X", "X", "X", "", "X", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Patterson and Ross-Edwards (2009)", "marks": ["X", "X", "X", "X", "X", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Portz et al. (2016)", "marks": ["X", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "X", "X", "X", "", "", "", "X", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Purvis et al. (2024)*", "marks": ["", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Reed et al. (2010)", "marks": ["X", "X", "X", "X", "X", "", "", "", "", "", "X", "", "", "", "", "", "X", "X", "X", "X", "X", "", "", "", "X", "", "X", "X", "", "", "X", "", "", "", "X", "", "X", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Regan et al. (2021)", "marks": ["", "X", "", "X", "X", "X", "", "X", "X", "X", "X", "", "", "", "", "", "", "", "X", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Sammut et al. (2021)", "marks": ["X", "X", "X", "X", "X", "X", "", "", "", "", "", "X", "", "", "", "", "X", "X", "X", "X", "", "", "", "X", "", "", "", "X", "", "", "", "", "", "", "", "", "X", "", "", "", "X", "", "", ""]}, {"stakeholder": "Patients only", "study": "Sharma et al. (2012)", "marks": ["X", "X", "X", "", "X", "", "", "", "", "X", "X", "", "", "", "", "", "", "", "X", "", "X", "X", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Signal et al. (2016)", "marks": ["X", "X", "X", "X", "X", "X", "", "", "", "X", "", "X", "", "", "", "", "", "", "X", "X", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Smith et al. (2023)", "marks": ["X", "X", "", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Taylor-Piliae et al. (2020)", "marks": ["X", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Taylor-Piliae et al. (2021)", "marks": ["X", "X", "", "", "", "", "", "X", "", "", "", "", "", "", "", "X", "X", "", "X", "X", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "", ""]}, {"stakeholder": "Patients only", "study": "Van Puymbroeck et al. (2014)", "marks": ["X", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "X", "", "", "", "", "X", "X", "", "", "", "", "X", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Walton et al. (2025)", "marks": ["X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "", "", "", "X", "", "", "", "", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Weaver et al. (2024)†", "marks": ["X", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "X", "", "X", "", "", "", "X", "", "X", "", "X", "X", "", "", "", "", "X", "", "X", "", "X", "", "X", "", "", ""]}, {"stakeholder": "Patients only", "study": "White et al. (2013)", "marks": ["", "X", "X", "X", "X", "", "", "", "", "X", "X", "", "", "", "", "X", "X", "X", "X", "", "", "", "X", "", "X", "", "", "", "", "X", "X", "", "", "", "X", "", "X", "", "", "", "", "", "", ""]}, {"stakeholder": "Patients only", "study": "Young et al. (2021)", "marks": ["X", "X", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "X", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "X", "X", "", "", ""]}, {"stakeholder": "Carers only", "study": "Jagroop et al. (2018)", "marks": ["X", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "X", "", "X", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Staff only", "study": "Aravind et al. (2023a)", "marks": ["", "", "", "X", "", "", "X", "", "X", "", "", "X", "X", "", "", "", "", "", "", "X", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", ""]}, {"stakeholder": "Staff only", "study": "Skrastins et al. (2020)†", "marks": ["", "", "", "", "", "", "", "", "X", "", "", "X", "X", "", "", "X", "", "X", "", "X", "", "", "", "", "", "", "X", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Staff only", "study": "Alsbury-Nealy et al (2025)†", "marks": ["", "", "", "", "", "X", "X", "", "X", "", "", "X", "X", "", "", "X", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Staff only", "study": "Clague-Baker et al. (2024)†", "marks": ["", "", "", "", "", "", "X", "", "", "", "", "X", "X", "", "", "X", "", "X", "", "X", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"stakeholder": "Staff only", "study": "Fairbairn et al. (2018)", "marks": ["", "", "", "", "", "", "", "", "", "X", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "X", "", "", "", "", "", "", ""]}, {"stakeholder": "Staff only", "study": "Jeffares et al. (2022)†", "marks": ["", "X", "", "", "", "", "", "", "", "X", "", "", "X", "", "", "", "", "X", "", "", "", "", "", "", "X", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "X", "", "", "", ""]}, {"stakeholder": "Staff only", "study": "Lennon et al. (2020)†", "marks": ["", "", "", "", "", "", "", "", "", "X", "", "X", "X", "X", "", "X", "X", "", "X", "", "", "", "", "", "", "", "X", "X", "X", "", "", "", "", "", "", "", "", "", "X", "", "X", "", "", ""]}], "footnote": "* Conference abstract only. † Mixed stakeholder study."};
+
+const searchEl = document.getElementById('search');
+const stakeholderEl = document.getElementById('stakeholder');
+const categoryEl = document.getElementById('category');
+const subcategoryEl = document.getElementById('subcategory');
+const thead = document.getElementById('thead');
+const tbody = document.getElementById('tbody');
+const tfoot = document.getElementById('tfoot');
+const empty = document.getElementById('empty');
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[ch]);
+}
+
+const stakeholderValues = [...new Set(DATA.rows.map(r => r.stakeholder))];
+stakeholderValues.forEach(v => {
+  const o = document.createElement('option');
+  o.value = v; o.textContent = v; stakeholderEl.appendChild(o);
+});
+
+DATA.groups.forEach(g => {
+  const o = document.createElement('option');
+  o.value = g.name; o.textContent = g.name; categoryEl.appendChild(o);
+});
+
+DATA.columns.forEach(c => {
+  const o = document.createElement('option');
+  o.value = c.index;
+  o.textContent = `${c.group} — ${c.name}`;
+  subcategoryEl.appendChild(o);
+});
+
+function buildHeader() {
+  thead.innerHTML = '';
+  const r1 = document.createElement('tr');
+  r1.className = 'group-row';
+
+  const h1 = document.createElement('th');
+  h1.className = 'stakeholder';
+  h1.rowSpan = 2;
+  h1.textContent = 'Stakeholder groups';
+  r1.appendChild(h1);
+
+  const h2 = document.createElement('th');
+  h2.className = 'study';
+  h2.rowSpan = 2;
+  h2.textContent = 'Study ID';
+  r1.appendChild(h2);
+
+  DATA.groups.forEach((g, i) => {
+    const th = document.createElement('th');
+    th.colSpan = g.span;
+    th.dataset.group = g.name;
+    th.textContent = g.name;
+    th.style.background = g.bg;
+    th.style.color = g.fg;
+    r1.appendChild(th);
+  });
+
+  const r2 = document.createElement('tr');
+  r2.className = 'sub-row';
+  DATA.columns.forEach(c => {
+    const th = document.createElement('th');
+    th.className = 'subcat';
+    th.dataset.col = c.index;
+    th.dataset.group = c.group;
+    th.textContent = c.name;
+    const g = DATA.groups[c.group_index];
+    th.style.borderTop = `3px solid ${g.fg}`;
+    r2.appendChild(th);
+  });
+
+  thead.append(r1, r2);
+}
+
+function buildBody() {
+  tbody.innerHTML = '';
+  DATA.rows.forEach((r, rowIndex) => {
+    const tr = document.createElement('tr');
+    tr.dataset.row = rowIndex;
+    tr.dataset.stakeholder = r.stakeholder;
+    tr.dataset.study = r.study.toLowerCase();
+
+    const g = document.createElement('td');
+    g.className = 'stakeholder';
+    g.textContent = r.stakeholder;
+    tr.appendChild(g);
+
+    const s = document.createElement('td');
+    s.className = 'study';
+    s.textContent = r.study;
+    tr.appendChild(s);
+
+    r.marks.forEach((m, colIndex) => {
+      const td = document.createElement('td');
+      td.className = 'mark';
+      td.dataset.col = colIndex;
+      td.dataset.group = DATA.columns[colIndex].group;
+      if (String(m).trim().toUpperCase() === 'X') {
+        td.innerHTML = '<span class="xmark">X</span>';
+        td.setAttribute('aria-label', 'Present');
+        td.title = DATA.columns[colIndex].name;
+      }
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+function buildFooter() {
+  tfoot.innerHTML = '';
+  const tr = document.createElement('tr');
+
+  const label = document.createElement('td');
+  label.className = 'stakeholder';
+  label.textContent = 'Frequency';
+  tr.appendChild(label);
+
+  const detail = document.createElement('td');
+  detail.className = 'study';
+  detail.textContent = 'Visible studies';
+  tr.appendChild(detail);
+
+  DATA.columns.forEach(c => {
+    const td = document.createElement('td');
+    td.className = 'mark';
+    td.dataset.col = c.index;
+    td.dataset.group = c.group;
+    td.textContent = '0';
+    tr.appendChild(td);
+  });
+  tfoot.appendChild(tr);
+}
+
+function applyColumnVisibility() {
+  const selected = categoryEl.value;
+  document.querySelectorAll('[data-group]').forEach(el => {
+    if (!selected || el.dataset.group === selected) el.classList.remove('hidden-col');
+    else el.classList.add('hidden-col');
+  });
+  const visibleCols = DATA.columns.filter(c => !selected || c.group === selected).length;
+  document.getElementById('columnCount').textContent =
+    `${visibleCols} of ${DATA.columns.length} sub-categories shown`;
+}
+
+function applyRowFilters() {
+  const q = searchEl.value.trim().toLowerCase();
+  const stakeholder = stakeholderEl.value;
+  const sub = subcategoryEl.value === '' ? null : Number(subcategoryEl.value);
+  let visible = 0;
+  const counts = new Array(DATA.columns.length).fill(0);
+
+  [...tbody.rows].forEach((tr, idx) => {
+    const r = DATA.rows[idx];
+    const textMatch = !q || r.study.toLowerCase().includes(q) || r.stakeholder.toLowerCase().includes(q);
+    const stakeholderMatch = !stakeholder || r.stakeholder === stakeholder;
+    const subMatch = sub === null || String(r.marks[sub]).trim().toUpperCase() === 'X';
+    const show = textMatch && stakeholderMatch && subMatch;
+
+    tr.style.display = show ? '' : 'none';
+    if (show) {
+      visible++;
+      r.marks.forEach((m, j) => {
+        if (String(m).trim().toUpperCase() === 'X') counts[j]++;
+      });
+    }
+  });
+
+  const footerCells = tfoot.rows[0].cells;
+  footerCells[1].textContent = `${visible} studies`;
+  counts.forEach((n, j) => footerCells[j + 2].textContent = n);
+
+  document.getElementById('visibleCount').textContent =
+    `${visible} of ${DATA.rows.length} studies visible`;
+  empty.style.display = visible ? 'none' : 'block';
+}
+
+function update() {
+  applyColumnVisibility();
+  applyRowFilters();
+}
+
+searchEl.addEventListener('input', update);
+stakeholderEl.addEventListener('change', update);
+categoryEl.addEventListener('change', update);
+subcategoryEl.addEventListener('change', update);
+
+document.getElementById('reset').addEventListener('click', () => {
+  searchEl.value = '';
+  stakeholderEl.value = '';
+  categoryEl.value = '';
+  subcategoryEl.value = '';
+  update();
+});
+
+document.getElementById('download').addEventListener('click', () => {
+  const selectedGroup = categoryEl.value;
+  const visibleColumns = DATA.columns.filter(c => !selectedGroup || c.group === selectedGroup);
+  const rows = [['Stakeholder groups', 'Study ID', ...visibleColumns.map(c => c.name)]];
+
+  [...tbody.rows].forEach((tr, idx) => {
+    if (tr.style.display === 'none') return;
+    const r = DATA.rows[idx];
+    rows.push([
+      r.stakeholder,
+      r.study,
+      ...visibleColumns.map(c => r.marks[c.index] || '')
+    ]);
+  });
+
+  const csv = rows.map(row => row.map(v => {
+    const s = String(v ?? '');
+    return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  }).join(',')).join('\n');
+
+  const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'filtered_subcategory_table.csv';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+});
+
+buildHeader();
+buildBody();
+buildFooter();
+update();
+</script>
+</body>
+</html>
